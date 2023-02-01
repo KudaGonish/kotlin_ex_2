@@ -3,22 +3,37 @@ package com.kudagonish.languagedictionary.ui.main
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudagonish.languagedictionary.*
 import com.kudagonish.languagedictionary.databinding.ActivityMainBinding
+import com.kudagonish.languagedictionary.di.ViewModelFactory
 import com.kudagonish.languagedictionary.ui.base.BaseActivity
+import com.kudagonish.languagedictionary.ui.base.BaseViewModel
+import dagger.android.AndroidInjection
+import javax.inject.Inject
 
 
-class MainActivity : BaseActivity<AppSate>() {
+class MainActivity : BaseActivity<AppState>(), View {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+
+
+
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
 
-
-    override fun createPresenter(): Presenter<AppSate, View> {
-        return MainPresenter()
+    override val model: MainViewModel by lazy {
+        viewModelFactory.create(MainViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+        AndroidInjection.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -27,7 +42,7 @@ class MainActivity : BaseActivity<AppSate>() {
             searchDialogFragment.setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    presenter.getData(searchWord, true)
+                    model.getWordsDescriptions(searchWord, true)
                 }
             })
             searchDialogFragment.show(
@@ -36,13 +51,15 @@ class MainActivity : BaseActivity<AppSate>() {
 
         }
         binding.mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        adapter = MainAdapter {  }
+        adapter = MainAdapter { }
         binding.mainActivityRecyclerview.adapter = adapter
+
+
     }
 
-    override fun renderData(appSate: AppSate) {
+    override fun renderData(appSate: AppState) {
         when (appSate) {
-            is AppSate.Success -> {
+            is AppState.Success -> {
                 val dataModel = appSate.data
                 if (dataModel.isEmpty()) {
                     showErrorScreen(getString(R.string.empty_server_response_on_success))
@@ -58,7 +75,7 @@ class MainActivity : BaseActivity<AppSate>() {
                     }
                 }
             }
-            is AppSate.Loading -> {
+            is AppState.Loading -> {
                 showViewLoading()
                 if (appSate.process != null) {
                     binding.progressBarHorizontal.visibility = VISIBLE
@@ -69,7 +86,7 @@ class MainActivity : BaseActivity<AppSate>() {
                     binding.progressBarRound.visibility = VISIBLE
                 }
             }
-            is AppSate.Error -> {
+            is AppState.Error -> {
                 showErrorScreen(appSate.t.message)
             }
         }
@@ -79,7 +96,7 @@ class MainActivity : BaseActivity<AppSate>() {
         showViewError()
         binding.errorTextview.text = error ?: getString(R.string.undefined_error)
         binding.reloadButton.setOnClickListener {
-            presenter.getData("hi", true)
+            model.getWordsDescriptions("hi", true)
         }
     }
 
