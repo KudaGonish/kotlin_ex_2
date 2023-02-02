@@ -1,17 +1,12 @@
 package com.kudagonish.languagedictionary.ui.main
 
-import androidx.lifecycle.LiveData
 import com.kudagonish.languagedictionary.AppState
-import com.kudagonish.languagedictionary.Interactor
-import com.kudagonish.languagedictionary.data.RepoImpl
-import com.kudagonish.languagedictionary.data.remote.DataSourceRemote
 import com.kudagonish.languagedictionary.interactor.main.MainInteractor
 import com.kudagonish.languagedictionary.ui.base.BaseViewModel
 import io.reactivex.observers.DisposableObserver
-import javax.inject.Inject
 
 
-class MainViewModel @Inject constructor( private val interactor: MainInteractor) : BaseViewModel<AppState>() {
+class MainViewModel ( private val interactor: MainInteractor) : BaseViewModel<AppState>() {
 
 
     fun getWordsDescriptions(word: String, isOnline: Boolean) {

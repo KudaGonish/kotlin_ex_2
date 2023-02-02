@@ -3,36 +3,23 @@ package com.kudagonish.languagedictionary.ui.main
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kudagonish.languagedictionary.*
+import com.kudagonish.languagedictionary.AppState
+import com.kudagonish.languagedictionary.R
+import com.kudagonish.languagedictionary.View
 import com.kudagonish.languagedictionary.databinding.ActivityMainBinding
-import com.kudagonish.languagedictionary.di.ViewModelFactory
 import com.kudagonish.languagedictionary.ui.base.BaseActivity
-import com.kudagonish.languagedictionary.ui.base.BaseViewModel
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : BaseActivity<AppState>(), View {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-
-
-
     private lateinit var binding: ActivityMainBinding
     private var adapter: MainAdapter? = null
 
-    override val model: MainViewModel by lazy {
-        viewModelFactory.create(MainViewModel::class.java)
-    }
+    override val model: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-        AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -57,10 +44,10 @@ class MainActivity : BaseActivity<AppState>(), View {
 
     }
 
-    override fun renderData(appSate: AppState) {
-        when (appSate) {
+    override fun renderData(appState: AppState) {
+        when (appState) {
             is AppState.Success -> {
-                val dataModel = appSate.data
+                val dataModel = appState.data
                 if (dataModel.isEmpty()) {
                     showErrorScreen(getString(R.string.empty_server_response_on_success))
                 } else {
@@ -77,17 +64,17 @@ class MainActivity : BaseActivity<AppState>(), View {
             }
             is AppState.Loading -> {
                 showViewLoading()
-                if (appSate.process != null) {
+                if (appState.process != null) {
                     binding.progressBarHorizontal.visibility = VISIBLE
                     binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appSate.process
+                    binding.progressBarHorizontal.progress = appState.process
                 } else {
                     binding.progressBarHorizontal.visibility = GONE
                     binding.progressBarRound.visibility = VISIBLE
                 }
             }
             is AppState.Error -> {
-                showErrorScreen(appSate.t.message)
+                showErrorScreen(appState.t.message)
             }
         }
     }
