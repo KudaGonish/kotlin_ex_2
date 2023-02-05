@@ -9,16 +9,9 @@ import com.kudagonish.languagedictionary.rx.SchedulerProvider
 import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T: AppState> (
-    protected val stateLiveData: MutableLiveData<T> = MutableLiveData(),
-    protected val schedulerProvider : ISchedulerProvider = SchedulerProvider()
+    protected val stateLiveData: MutableLiveData<T> = MutableLiveData()
 ):ViewModel(){
-    protected val compositeDisposable = CompositeDisposable()
 
     open fun getStateLiveData(): LiveData<T> = stateLiveData
 
-
-    override fun onCleared() {
-        compositeDisposable.clear()
-
-    }
 }

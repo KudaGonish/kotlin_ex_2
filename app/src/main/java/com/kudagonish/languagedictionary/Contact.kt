@@ -24,13 +24,13 @@ interface Presenter<T:AppState, V: View>{
 }
 
 interface Interactor<T>{
-    fun getData(word: String, isRemoteResource: Boolean) : Observable<T>
+    suspend fun getData(word: String, isRemoteResource: Boolean) : T
 }
 
 interface Repository<T>{
-    fun getData(word: String) : Observable<T>
+    suspend fun getData(word: String) : T
 }
 
 interface DataSource<T>{
-    fun getData(word: String) : Observable<T>
+    suspend fun getData(word: String) : T
 }
