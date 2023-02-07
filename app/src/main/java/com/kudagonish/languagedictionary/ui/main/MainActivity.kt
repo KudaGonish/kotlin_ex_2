@@ -9,6 +9,7 @@ import com.kudagonish.languagedictionary.R
 import com.kudagonish.languagedictionary.View
 import com.kudagonish.languagedictionary.databinding.ActivityMainBinding
 import com.kudagonish.languagedictionary.ui.base.BaseActivity
+import com.kudagonish.languagedictionary.ui.desctiption.DescriptionActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -38,7 +39,16 @@ class MainActivity : BaseActivity<AppState>(), View {
 
         }
         binding.mainActivityRecyclerview.layoutManager = LinearLayoutManager(applicationContext)
-        adapter = MainAdapter { }
+        adapter = MainAdapter {
+            startActivity(
+                DescriptionActivity.getIntent(
+                    this,
+                    word = it.text.orEmpty(),
+                    description = it.meaning?.joinToString {it.translation?.translation.orEmpty()}.toString(),
+                    imageUrl = it.meaning?.firstOrNull()?.imageUrl
+                )
+            )
+        }
         binding.mainActivityRecyclerview.adapter = adapter
 
 
