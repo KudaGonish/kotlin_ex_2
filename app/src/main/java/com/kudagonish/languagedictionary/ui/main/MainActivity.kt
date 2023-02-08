@@ -1,6 +1,8 @@
 package com.kudagonish.languagedictionary.ui.main
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,7 +12,9 @@ import com.kudagonish.languagedictionary.View
 import com.kudagonish.languagedictionary.databinding.ActivityMainBinding
 import com.kudagonish.languagedictionary.ui.base.BaseActivity
 import com.kudagonish.languagedictionary.ui.desctiption.DescriptionActivity
+import com.kudagonish.languagedictionary.ui.history.HistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.getScopeId
 
 
 class MainActivity : BaseActivity<AppState>(), View {
@@ -53,6 +57,22 @@ class MainActivity : BaseActivity<AppState>(), View {
 
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.history_item ->{
+                startActivity(HistoryActivity.createIntent(this))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     override fun renderData(appState: AppState) {
         when (appState) {

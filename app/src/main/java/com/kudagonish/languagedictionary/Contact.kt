@@ -1,7 +1,5 @@
 package com.kudagonish.languagedictionary
 
-import io.reactivex.Observable
-
 
 sealed interface AppState{
     data class Success(val data: List<DataModel>): AppState
@@ -27,10 +25,20 @@ interface Interactor<T>{
     suspend fun getData(word: String, isRemoteResource: Boolean) : T
 }
 
+interface IHistoryInteractor{
+    suspend fun getData() : AppState
+}
 interface Repository<T>{
     suspend fun getData(word: String) : T
 }
 
 interface DataSource<T>{
     suspend fun getData(word: String) : T
+}
+interface DataSourceLocal<T> : DataSource<T>{
+    suspend fun saveData(appState: AppState)
+}
+
+interface RepositoryLocal<T>:Repository<T>{
+    suspend fun saveData(appSate: AppState)
 }
