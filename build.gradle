@@ -4,3 +4,31 @@ plugins {
     id 'com.android.library' version '7.4.0' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.21' apply false
 }
+
+task clean(type:  Delete){
+    delete rootProject.buildDir
+}
+subprojects {
+    afterEvaluate { project ->
+        if(project.plugins.findPlugin('android') ?: project.plugins.findPlugin('android-library')){
+            android{
+                compileSdkVersion 33
+
+                defaultConfig {
+                    minSdk 24
+                    targetSdk 33
+                }
+                buildFeatures{
+                    viewBinding true
+                }
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+            }
+
+
+        }
+
+    }
+}

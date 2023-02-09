@@ -11,7 +11,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
+
 }
+
+
+
 rootProject.name = "languageDictionary"
 include ':app'
 include ':timerdev'
