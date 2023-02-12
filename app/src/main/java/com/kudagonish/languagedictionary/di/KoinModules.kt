@@ -1,18 +1,16 @@
 package com.kudagonish.languagedictionary.di
 
 import androidx.room.Room
-import com.kudagonish.languagedictionary.*
-import com.kudagonish.languagedictionary.data.RemoteRepoImpl
-import com.kudagonish.languagedictionary.data.local.HistoryDao
-import com.kudagonish.languagedictionary.data.local.HistoryDatabase
-import com.kudagonish.languagedictionary.data.local.LocalRepoImpl
-import com.kudagonish.languagedictionary.data.local.RoomDataSource
-import com.kudagonish.languagedictionary.data.remote.RetrofitImolementation
+import com.kudagonish.data.local.HistoryDatabase
+import com.kudagonish.data.local.LocalRepoImpl
+import com.kudagonish.data.local.RoomDataSource
+import com.kudagonish.data.remote.RemoteRepoImpl
+import com.kudagonish.data.remote.RetrofitImolementation
 import com.kudagonish.languagedictionary.interactor.history.HistoryInteractor
 import com.kudagonish.languagedictionary.interactor.main.MainInteractor
-import com.kudagonish.languagedictionary.ui.history.HistoryViewModel
+import com.kudagonish.history.HistoryViewModel
 import com.kudagonish.languagedictionary.ui.main.MainViewModel
-import org.koin.core.qualifier.named
+import com.kudagonish.models.*
 import org.koin.dsl.module
 
 val application = module {
@@ -25,7 +23,7 @@ val application = module {
         RetrofitImolementation()
     }
     single<Repository<List<DataModel>>> {
-        RemoteRepoImpl(get())
+       RemoteRepoImpl(get())
     }
 
 
@@ -43,5 +41,5 @@ val mainScreen = module {
 }
 val historyScreen = module {
     factory<IHistoryInteractor> { HistoryInteractor(get()) }
-    factory { HistoryViewModel(get()) }
+    factory { com.kudagonish.history.HistoryViewModel(get()) }
 }

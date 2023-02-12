@@ -1,13 +1,12 @@
 package com.kudagonish.languagedictionary.interactor.main
 
 
-import com.kudagonish.languagedictionary.*
-import io.reactivex.Observable
+import com.kudagonish.models.*
 
 class MainInteractor(
     private val remoteRepository: Repository<List<DataModel>>,
     private val localRepository: RepositoryLocal<List<DataModel>>
-): Interactor<AppState>{
+): Interactor<AppState> {
     override suspend fun getData(word: String, isRemoteResource: Boolean): AppState {
         return if(isRemoteResource){
             val data = remoteRepository.getData(word)

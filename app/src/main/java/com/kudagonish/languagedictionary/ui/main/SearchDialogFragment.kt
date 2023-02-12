@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kudagonish.languagedictionary.databinding.FragmentSearchBinding
+import com.kudagonish.models.databinding.FragmentSearchBinding
 
 
 class SearchDialogFragment: BottomSheetDialogFragment() {

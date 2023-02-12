@@ -6,15 +6,14 @@ import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.kudagonish.languagedictionary.AppState
-import com.kudagonish.languagedictionary.R
-import com.kudagonish.languagedictionary.View
-import com.kudagonish.languagedictionary.databinding.ActivityMainBinding
+import com.kudagonish.models.AppState
+import com.kudagonish.models.View
 import com.kudagonish.languagedictionary.ui.base.BaseActivity
 import com.kudagonish.languagedictionary.ui.desctiption.DescriptionActivity
-import com.kudagonish.languagedictionary.ui.history.HistoryActivity
+import com.kudagonish.history.HistoryActivity
+import com.kudagonish.models.R
+import com.kudagonish.models.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.component.getScopeId
 
 
 class MainActivity : BaseActivity<AppState>(), View {
@@ -66,7 +65,7 @@ class MainActivity : BaseActivity<AppState>(), View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.history_item ->{
-                startActivity(HistoryActivity.createIntent(this))
+                startActivity(com.kudagonish.history.HistoryActivity.createIntent(this))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -97,7 +96,7 @@ class MainActivity : BaseActivity<AppState>(), View {
                 if (appState.process != null) {
                     binding.progressBarHorizontal.visibility = VISIBLE
                     binding.progressBarRound.visibility = GONE
-                    binding.progressBarHorizontal.progress = appState.process
+                    binding.progressBarHorizontal.progress = appState.process!!
                 } else {
                     binding.progressBarHorizontal.visibility = GONE
                     binding.progressBarRound.visibility = VISIBLE

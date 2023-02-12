@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.kudagonish.languagedictionary.DataModel
+import com.kudagonish.models.DataModel
 
 
-import com.kudagonish.languagedictionary.databinding.ItemWordBinding
+import com.kudagonish.models.databinding.ItemWordBinding
 
 class MainAdapter(
     private val itemClickListener: (DataModel) -> Unit

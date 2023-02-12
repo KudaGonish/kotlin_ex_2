@@ -1,13 +1,8 @@
 package com.kudagonish.languagedictionary.ui.base
 
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
-import com.kudagonish.languagedictionary.AppState
-import com.kudagonish.languagedictionary.Presenter
-import com.kudagonish.languagedictionary.View
+import com.kudagonish.models.AppState
 
 abstract class BaseActivity<T: AppState> : AppCompatActivity() {
 

@@ -9,9 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
-import com.kudagonish.languagedictionary.R
-import com.kudagonish.languagedictionary.databinding.AcDescriptionBinding
 import com.kudagonish.languagedictionary.ui.base.isOnline
+import com.kudagonish.models.R
+import com.kudagonish.models.databinding.AcDescriptionBinding
 import kotlinx.coroutines.launch
 
 class DescriptionActivity : AppCompatActivity() {

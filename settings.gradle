@@ -18,4 +18,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "languageDictionary"
 include ':app'
-include ':timerdev'
+include ':models'
+include ':data'
+include ':history'

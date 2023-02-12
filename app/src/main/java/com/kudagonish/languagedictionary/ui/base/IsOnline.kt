@@ -6,8 +6,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.getSystemService
 
 
-    fun isOnline(context: Context): Boolean{
-        val connectivityManager = context.getSystemService<ConnectivityManager>()
-        val netInf =connectivityManager?.activeNetworkInfo
-        return netInf != null && netInf.isConnected
-    }
+fun isOnline(context: Context): Boolean {
+    val connectivityManager = context.getSystemService<ConnectivityManager>()
+    val netInf = connectivityManager?.activeNetworkInfo
+    return netInf != null && netInf.isConnected
+}

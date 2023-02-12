@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.kudagonish.languagedictionary.ui.desctiption.DescriptionActivity" />
-        <activity android:name="com.kudagonish.languagedictionary.ui.history.HistoryActivity" />
+        <activity android:name="com.kudagonish.history.HistoryActivity" />
     </application>
 
 </manifest>
